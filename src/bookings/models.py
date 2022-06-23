@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Bus(models.Model):
-    number_plate = models.CharField(max_length=8, blank=False)
-
-    def __str__(self):
-        return self.number_plate
 
 class Route(models.Model):
     PLACES_CHOICES = (
@@ -37,11 +32,19 @@ class Route(models.Model):
     price = models.IntegerField()
     date = models.DateField()
     seats = models.JSONField()
-    BUS_ID = models.ForeignKey(to=Bus, on_delete=models.CASCADE)
 
 
     def __str__(self):
         return f'{self.start_point} - {self.end_point}'
+
+
+class Bus(models.Model):
+    number_plate = models.CharField(max_length=8, blank=False)
+    BUS_ROUTE = models.ForeignKey(to =Route,on_delete=models.CASCADE, default=1)
+
+    def __str__(self):
+        return self.number_plate
+
 
 class Ticket(models.Model):
     date_paid = models.DateField()
@@ -50,6 +53,9 @@ class Ticket(models.Model):
     traveller = models.ForeignKey('users.Member', on_delete=models.CASCADE)
     payment_id = models.TextField()
     ROUTE_ID = models.ForeignKey(to=Route, on_delete=models.CASCADE)
+    BUS_ID = models.ForeignKey(to=Bus,on_delete=models.CASCADE)
 
-    #def __str__(self):
-      #  return str(self.seat_number)
+    def __str__(self):
+        return str(self.traveller.username)
+
+

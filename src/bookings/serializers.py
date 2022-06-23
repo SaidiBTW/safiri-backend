@@ -9,6 +9,7 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
        fields = ('id','date_paid','seat_number','traveller','payment_id')
        model = Ticket
+       
     
 class RouteSerializer(serializers.ModelSerializer):
     class Meta:
