@@ -7,7 +7,7 @@ from .models import Bus
 
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
-       fields = ('id','date_paid','seat_number','traveller','payment_id')
+       fields = ('id','date_paid','seat_number','traveller','payment_id','time_paid','BUS_ID','ROUTE_ID')
        model = Ticket
        
     
@@ -18,5 +18,5 @@ class RouteSerializer(serializers.ModelSerializer):
     
 class BusSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id','number_plate')
+        fields = ('id','number_plate','BUS_ROUTE')
         model = Bus
